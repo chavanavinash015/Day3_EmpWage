@@ -1,29 +1,27 @@
+import java.util.LinkedList;
+
 public class EmployeeWage implements IComputeEmpWage {
 
    public static final int IS_FULL_TIME = 2;
    public static final int IS_PART_TIME = 1;
-
-    private int NUM_OF_COMPONY = 0;
-    private ComponyEmpWage[] ComponyEmpWageArray;
+   private LinkedList<ComponyEmpWage> ComponyWageList;
 
     public EmployeeWage() {
-        ComponyEmpWageArray = new ComponyEmpWage[5];
+       ComponyWageList = new LinkedList<>();
     }
 
     public void addComponyEmpWage(String COMPONY_NAME, int WAGE_PER_HOUR, int WORKING_DAYS_PER_MONTH, int TOTAL_WORKING_HOUR) {
-        ComponyEmpWageArray[NUM_OF_COMPONY] = new ComponyEmpWage(COMPONY_NAME, WAGE_PER_HOUR, WORKING_DAYS_PER_MONTH, TOTAL_WORKING_HOUR);
-        NUM_OF_COMPONY++;
+       ComponyEmpWage componyEmpWage = new ComponyEmpWage(COMPONY_NAME, WAGE_PER_HOUR, WORKING_DAYS_PER_MONTH, TOTAL_WORKING_HOUR);
+        ComponyWageList.add(componyEmpWage);
     }
 
-    @Override
-    public void ComputeEmpWage() {
 
-    }
 
-    private void computeEmployeeWage() {
-       for (int i = 0; i < NUM_OF_COMPONY; i++) {
-           ComponyEmpWageArray[i].setTotal_wage(this.computeEmployeeWage(ComponyEmpWageArray[i]));
-           System.out.println(ComponyEmpWageArray[i]);
+    public void computeEmployeeWage() {
+       for (int i = 0; i < ComponyWageList.size(); i++) {
+          ComponyEmpWage componyEmpWage = ComponyWageList.get(i);
+          componyEmpWage.setTotal_wage(this.computeEmployeeWage(componyEmpWage));
+           System.out.println(componyEmpWage);
        }
    }
    private int computeEmployeeWage(ComponyEmpWage componyEmpWage){
@@ -61,7 +59,7 @@ public class EmployeeWage implements IComputeEmpWage {
         wageCalculate.addComponyEmpWage("Samsung",10,2,10);
         wageCalculate.addComponyEmpWage("Lenovo",15,4,10);
         wageCalculate.addComponyEmpWage("Mahindra",15,8,15);
-        wageCalculate.ComputeEmpWage();
+        wageCalculate.computeEmployeeWage();
         }
 }
 
