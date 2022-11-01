@@ -45,7 +45,8 @@ public class EmployeeWage implements IComputeEmpWage {
                 default:
                     System.out.println("Employee Absent");
             }
-            totalwage = totalwage + dailyWage;
+            // total employee wage foe employee
+               totalwage = totalwage + dailyWage;
             System.out.println("Daily Wage => "+day+ " => " + dailyWage);
             day++;
         }
