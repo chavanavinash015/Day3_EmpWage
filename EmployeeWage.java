@@ -54,6 +54,7 @@ public class EmployeeWage {
         EmployeeWage empwages = new EmployeeWage();
         empwages.addComponyEmpWage("Samsung",10,2,10);
         empwages.addComponyEmpWage("Lenovo",15,4,10);
+        empwages.addComponyEmpWage("Mahindra",15,8,15);
         empwages.computeEmployeeWage();
         }
 }
