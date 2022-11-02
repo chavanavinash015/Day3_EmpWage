@@ -1,18 +1,23 @@
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class EmployeeWage implements IComputeEmpWage {
 
    public static final int IS_FULL_TIME = 2;
    public static final int IS_PART_TIME = 1;
    private LinkedList<ComponyEmpWage> ComponyWageList;
+   private Map<String,ComponyEmpWage> ComponyToWageMap;
 
     public EmployeeWage() {
        ComponyWageList = new LinkedList<>();
+       ComponyToWageMap = new HashMap<>();
     }
 
     public void addComponyEmpWage(String COMPONY_NAME, int WAGE_PER_HOUR, int WORKING_DAYS_PER_MONTH, int TOTAL_WORKING_HOUR) {
        ComponyEmpWage componyEmpWage = new ComponyEmpWage(COMPONY_NAME, WAGE_PER_HOUR, WORKING_DAYS_PER_MONTH, TOTAL_WORKING_HOUR);
         ComponyWageList.add(componyEmpWage);
+        ComponyToWageMap.put(COMPONY_NAME,componyEmpWage);
     }
 
 
@@ -24,7 +29,13 @@ public class EmployeeWage implements IComputeEmpWage {
            System.out.println(componyEmpWage);
        }
    }
-   private int computeEmployeeWage(ComponyEmpWage componyEmpWage){
+
+    @Override
+    public int gettotalwage(String COMPONY_NAME) {
+        return ComponyToWageMap.get(COMPONY_NAME).total_wage;
+    }
+
+    private int computeEmployeeWage(ComponyEmpWage componyEmpWage){
         int day = 1;
         int totalworkinghours = 0;
         int totalwage = 0;
@@ -54,6 +65,7 @@ public class EmployeeWage implements IComputeEmpWage {
         return totalwage * componyEmpWage.WAGE_PER_HOUR;
     }
 
+
     public static void main(String[] args) {
         System.out.println("Start to the Employee Wages");
         IComputeEmpWage wageCalculate = new EmployeeWage();
@@ -61,6 +73,9 @@ public class EmployeeWage implements IComputeEmpWage {
         wageCalculate.addComponyEmpWage("Lenovo",15,4,10);
         wageCalculate.addComponyEmpWage("Mahindra",15,8,15);
         wageCalculate.computeEmployeeWage();
+        System.out.println("Total Wage for Samsung : "+ wageCalculate.gettotalwage("Samsung"));
+        System.out.println("Total Wage for Lenovo : "+ wageCalculate.gettotalwage("Lenovo"));
+        System.out.println("Total Wage for Mahindra : "+ wageCalculate.gettotalwage("Mahindra"));
         }
 }
 
